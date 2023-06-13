@@ -35,7 +35,7 @@ namespace Library.Data.Models
 
         [Required]
         [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = null!;
 
         public List<IdentityUserBook> UsersBooks { get; set; } = new List<IdentityUserBook>();
     }
