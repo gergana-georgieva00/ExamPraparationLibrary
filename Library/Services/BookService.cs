@@ -14,6 +14,11 @@ namespace Library.Services
             this.dbContext = dbContext;
         }
 
+        public Task AddBookToCollectionAsync(string userId, BookViewModel book)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<AllBookViewModel>> GetAllBooksAsync()
         {
             return await this.dbContext
@@ -27,6 +32,22 @@ namespace Library.Services
                     Rating = b.Rating,
                     Category = b.Category.Name
                 }).ToListAsync();
+        }
+
+        public async Task<BookViewModel?> GetBookByIdAsync(int id)
+        {
+            return await dbContext.Books
+                .Where(b => b.Id == id)
+                .Select(b => new BookViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    ImageUrl = b.ImageUrl,
+                    Description = b.Description,
+                    Rating = b.Rating,
+                    CategoryId = b.CategoryId
+                }).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<AllBookViewModel>> GetMyBooksAsync(string userId)
