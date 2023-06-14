@@ -20,19 +20,17 @@ namespace Library.Services
             bool alreadyAdded = await dbContext.IdentityUserBooks
                 .AnyAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
 
-            if (alreadyAdded)
+            if (!alreadyAdded)
             {
-                throw new InvalidOperationException("Book already added to collection.");
+                var userBook = new IdentityUserBook
+                {
+                    CollectorId = userId,
+                    BookId = book.Id
+                };
+
+                await dbContext.IdentityUserBooks.AddAsync(userBook);
+                await dbContext.SaveChangesAsync();
             }
-
-            var userBook = new IdentityUserBook
-            {
-                CollectorId = userId,
-                BookId = book.Id
-            };
-
-            await dbContext.IdentityUserBooks.AddAsync(userBook);
-            await dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<AllBookViewModel>> GetAllBooksAsync()
