@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace Library.Controllers
 {
     public class HomeController : BaseController
@@ -10,6 +11,11 @@ namespace Library.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("All", "Book");
+            }
+
             return View();
         }
 

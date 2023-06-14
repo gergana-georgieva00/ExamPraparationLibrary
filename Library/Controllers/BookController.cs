@@ -4,7 +4,12 @@ namespace Library.Controllers
 {
     public class BookController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        public IActionResult All()
         {
             return View();
         }
