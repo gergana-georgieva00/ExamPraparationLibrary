@@ -14,9 +14,10 @@ namespace Library.Services
             this.dbContext = dbContext;
         }
 
-        public Task AddBookToCollectionAsync(string userId, BookViewModel book)
+        public async Task AddBookToCollectionAsync(string userId, BookViewModel book)
         {
-            throw new NotImplementedException();
+            bool alreadyAdded = await dbContext.IdentityUserBooks
+                .AnyAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
         }
 
         public async Task<IEnumerable<AllBookViewModel>> GetAllBooksAsync()
