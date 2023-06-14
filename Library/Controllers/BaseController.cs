@@ -9,7 +9,14 @@ namespace Library.Controllers
     {
         protected string GetUserId()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string id = string.Empty;
+
+            if (User != null)
+            {
+                id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            }
+
+            return id; 
         }
     }
 }

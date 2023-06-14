@@ -14,9 +14,9 @@ namespace Library.Controllers
 
         public async Task<IActionResult> Mine()
         {
-            var model = await bookService.GetMyBooksAsync(User.Id)
+            var model = await bookService.GetMyBooksAsync(GetUserId());
 
-            return View();
+            return View(model);
         }
 
         public async Task<IActionResult> All()
