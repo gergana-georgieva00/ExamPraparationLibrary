@@ -28,5 +28,20 @@ namespace Library.Services
                     Category = b.Category.Name
                 }).ToListAsync();
         }
+
+        public async Task<IEnumerable<AllBookViewModel>> GetMyBooksAsync(string userId)
+        {
+            return await dbContext.IdentityUserBooks
+                .Where(ub => ub.CollectorId == userId)
+                .Select(b => new AllBookViewModel
+                {
+                    Id = b.Book.Id,
+                    Title = b.Book.Title,
+                    Author = b.Book.Author,
+                    ImageUrl = b.Book.ImageUrl,
+                    Description = b.Book.Description,
+                    Category = b.Book.Category.Name
+                }).ToListAsync();
+        }
     }
 }
