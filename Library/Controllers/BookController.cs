@@ -21,7 +21,7 @@ namespace Library.Controllers
         {
             var model = await bookService.GetAllBooksAsync();
 
-            return View();
+            return View(model);
         }
     }
 }
