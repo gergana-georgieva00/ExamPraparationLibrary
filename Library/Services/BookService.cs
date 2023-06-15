@@ -79,6 +79,23 @@ namespace Library.Services
                 }).ToListAsync();
         }
 
+        public async Task<AddBookViewModel> GetNewAddBookModelAsync()
+        {
+            var categories = await dbContext.Categories
+                .Select(c => new CategoryViewModel
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToListAsync();
+
+            var model = new AddBookViewModel
+            {
+                Categories = categories
+            };
+
+            return model;
+        }
+
         public async Task RemoveBookFromCollectionAsync(string userId, BookViewModel book)
         {
             var userBook = await dbContext.IdentityUserBooks
