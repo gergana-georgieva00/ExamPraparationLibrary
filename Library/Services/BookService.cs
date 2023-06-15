@@ -15,6 +15,22 @@ namespace Library.Services
             this.dbContext = dbContext;
         }
 
+        public async Task AddBookAsync(AddBookViewModel model)
+        {
+            Book book = new Book()
+            {
+                Title = model.Title,
+                Author = model.Author,
+                ImageUrl = model.Url,
+                Description = model.Description,
+                CategoryId = model.CategoryId,
+                Rating = decimal.Parse(model.Rating)
+            };
+
+            await dbContext.Books.AddAsync(book);
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task AddBookToCollectionAsync(string userId, BookViewModel book)
         {
             bool alreadyAdded = await dbContext.IdentityUserBooks

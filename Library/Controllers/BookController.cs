@@ -60,11 +60,35 @@ namespace Library.Controllers
             return RedirectToAction(nameof(Mine));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Add()
         {
             AddBookViewModel model = await bookService.GetNewAddBookModelAsync();
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddBookViewModel model)
+        {
+            decimal rating;
+
+            if (!decimal.TryParse(model.Rating, out rating)
+                || rating < 0
+                || rating > 10)
+            {
+                ModelState.AddModelError(nameof(model.Rating), "Rating must be a number between 0 and 10");
+                return View(model);
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            await bookService.AddBookAsync(model);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }
