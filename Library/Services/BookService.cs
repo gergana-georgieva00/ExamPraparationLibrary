@@ -81,8 +81,14 @@ namespace Library.Services
 
         public async Task RemoveBookFromCollectionAsync(string userId, BookViewModel book)
         {
-            bool alreadyAdded = await dbContext.IdentityUserBooks
-                .AnyAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
+            var userBook = await dbContext.IdentityUserBooks
+                    .FirstOrDefaultAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
+
+            if (userBook != null)
+            {
+                dbContext.IdentityUserBooks.Remove(userBook);
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }
