@@ -14,7 +14,7 @@ namespace Library.Models
         public string Author { get; set; } = null!;
 
         [Required(AllowEmptyStrings = false)]
-        public string ImageUrl { get; set; } = null!;
+        public string Url { get; set; } = null!;
 
         [Required]
         public string Rating { get; set; } = null!;
