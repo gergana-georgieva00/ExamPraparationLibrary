@@ -1,5 +1,7 @@
 ﻿using Library.Contracts;
+using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Library.Controllers
 {
@@ -56,6 +58,13 @@ namespace Library.Controllers
             await bookService.RemoveBookFromCollectionAsync(userId, book);
 
             return RedirectToAction(nameof(Mine));
+        }
+
+        public IActionResult Add()
+        {
+            var model = new AddBookViewModel();
+
+            return View(model);
         }
     }
 }
