@@ -13,11 +13,11 @@ namespace Library.Models
         [StringLength(50, MinimumLength = 5)]
         public string Author { get; set; } = null!;
 
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        public decimal Rating { get; set; }
+        public string Rating { get; set; } = null!;
 
         [Required]
         [StringLength(5000, MinimumLength = 5)]
@@ -26,6 +26,6 @@ namespace Library.Models
         [Range(1, int.MaxValue)]
         public int CategoryId { get; set; }
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; } = null!
+        public IEnumerable<CategoryViewModel> Categories { get; set; } = new List<CategoryViewModel>();
     }
 }

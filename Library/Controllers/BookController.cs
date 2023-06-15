@@ -60,9 +60,9 @@ namespace Library.Controllers
             return RedirectToAction(nameof(Mine));
         }
 
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            var model = new AddBookViewModel();
+            AddBookViewModel model = await bookService.GetNewAddBookModelAsync();
 
             return View(model);
         }
