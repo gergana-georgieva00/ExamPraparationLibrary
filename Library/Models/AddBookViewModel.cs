@@ -25,5 +25,7 @@ namespace Library.Models
 
         [Range(1, int.MaxValue)]
         public int CategoryId { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; } = null!
     }
 }
