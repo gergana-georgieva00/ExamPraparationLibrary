@@ -78,5 +78,11 @@ namespace Library.Services
                     Category = b.Book.Category.Name
                 }).ToListAsync();
         }
+
+        public async Task RemoveBookFromCollectionAsync(string userId, BookViewModel book)
+        {
+            bool alreadyAdded = await dbContext.IdentityUserBooks
+                .AnyAsync(ub => ub.CollectorId == userId && ub.BookId == book.Id);
+        }
     }
 }
